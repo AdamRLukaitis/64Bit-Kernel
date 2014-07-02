@@ -1,0 +1,89 @@
+We are targeting the following Project points
+
+Preemptive OS 60 
+
+
+
+We have implemented all the required commands in the 60 mark project.
+
+To Run:
+======
+	Use the following command:
+
+	qemu-system-x86_64 -curses -cdrom $USER.iso -hda $USER.img -s
+
+
+Shell
+======
+
+In this OS, the shell is the intial process run. So when the OS boots, the shell has started up. To execute a binary, we just need to give the path of the executable.
+
+Eg.
+
+~]$/bin/ls
+
+where ls is a binary.
+
+Shebang Scripts
+===============
+We also support shenbang files.
+
+
+A list if test case files are available under  /etc/, Namely
+
+testEcho.sh - this shebang file takes /bin/echo as its executable
+
+testMalloc.sh - to test malloc , a string array in filled
+
+testRead.sh - Test reading of a file
+
+
+testSfault.sh - To test the segmentation faults
+
+testShell.sh - To test the working of the shell
+
+testUlimit.sh - To test the ulimit and the autogrowing stack
+
+
+PATH Environment variable
+===========================
+We support the PATH environment variable.
+This can be set using the following command
+
+setenv PATH=(%ABSOLUTE_PATH%)
+	Eg :  setenv PATH=/bin
+
+The path can also be set using the environment variables parameters used in the the ececvpe command.
+
+char *env[] = {"PATH=bin/","\0"};
+
+
+cd command
+==========
+
+We support  cd command with './' and '../' support.
+eg cd bin/
+
+
+Limitations!!!!!!
+==================
+1. For shebang files, we need to give the absolute path or need to be in the particular directory.
+Eg : /etc/testUlimit.sh
+
+		or 
+	cd etc/
+	./testUlimit.sh
+
+2. the environment variable list need to end with "\0"/ We have used it as an identifier fo the end of the array list.
+
+	By default in our shell sh.c , we are passing char *env[] = {"PATH=bin/","\0"}; , line 37 in bin/sh/sh.c
+
+3. The opendir command expect no '/' in the start.
+
+4. we support only single level '.' and ".." in cd
+	eg cd ./bin
+		or
+	  cd ../etc
+
+
+

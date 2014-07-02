@@ -7,7 +7,7 @@ struct tss_t {
 	uint32_t reserved;
 	uint64_t rsp0;
 	uint32_t unused[11];
-}__attribute__((packed)) tss;
+}__attribute__((packed))tss;
 
 /* adapted from Chris Stones, shovelos */
 
@@ -28,5 +28,6 @@ extern uint64_t gdt[];
 
 void reload_gdt();
 void setup_tss();
+//void setup_tss(struct tss_t *tss);
 
 #endif
